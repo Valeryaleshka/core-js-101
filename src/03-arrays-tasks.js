@@ -514,15 +514,15 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(array, keySelector, valueSelector) {
-  const groupToValues = array.reduce((object, item) => {
+function group(/* array, keySelector, valueSelector */) {
+  /* const groupedValues = array.reduce((object, item) => {
     const obj = object;
     obj[keySelector(item)] = obj[keySelector(item)] || [];
     obj[keySelector(item)].push(valueSelector(item));
     return obj;
   }, {});
-
-  return Object.keys(groupToValues).map((key) => [key, groupToValues[key]]);
+  return Object.keys(groupedValues).map((key) => [key, groupedValues[key]]); */
+  throw new Error('Not implemented');
 }
 
 
@@ -539,8 +539,8 @@ function group(array, keySelector, valueSelector) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map((x) => childrenSelector(x)).flat();
 }
 
 
@@ -579,8 +579,19 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length === 1) {
+    return arr;
+  }
+
+  if (arr.length % 2 === 0) {
+    // eslint-disable-next-line max-len
+    return arr.slice(Math.floor(arr.length / 2), arr.length).concat(arr.slice(0, Math.floor(arr.length / 2)));
+  }
+
+
+  // eslint-disable-next-line max-len
+  return arr.slice(Math.floor(arr.length / 2) + 1, arr.length).concat(arr[Math.floor(arr.length / 2)]).concat(arr.slice(0, Math.floor(arr.length / 2)));
 }
 
 
