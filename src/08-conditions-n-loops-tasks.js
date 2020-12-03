@@ -418,8 +418,17 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const a = pathes.concat().sort();
+  const a1 = a[0]; const a2 = a[a.length - 1]; const L = a1.length; let
+    i = 0;
+  while (i < L && a1.charAt(i) === a2.charAt(i)) {
+    i += 1;
+  }
+  const sub = a1.substring(0, i);
+  const string = sub.lastIndexOf('/');
+
+  return sub.substring(0, string + 1);
 }
 
 
@@ -441,8 +450,25 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const aNumRows = m1.length;
+  const aNumCols = m1[0].length;
+  const bNumCols = m2[0].length;
+  const product = new Array(aNumRows);
+
+  // eslint-disable-next-line no-plusplus
+  for (let r = 0; r < aNumRows; ++r) {
+    product[r] = new Array(bNumCols);
+    // eslint-disable-next-line no-plusplus
+    for (let c = 0; c < bNumCols; ++c) {
+      product[r][c] = 0;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < aNumCols; ++i) {
+        product[r][c] += m1[r][i] * m2[i][c];
+      }
+    }
+  }
+  return product;
 }
 
 
@@ -476,8 +502,48 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let result;
+  const a0 = position[0][0]; const a1 = position[0][1]; const
+    a2 = position[0][2];
+  const b0 = position[1][0]; const b1 = position[1][1]; const
+    b2 = position[1][2];
+  const c0 = position[2][0]; const c1 = position[2][1]; const
+    c2 = position[2][2];
+
+  if (a0 === a1 && a1 === a2) {
+    result = a0;
+  }
+
+  if (b0 === b1 && b1 === b2) {
+    result = b0;
+  }
+
+  if (c0 === c1 && c1 === c2) {
+    result = c0;
+  }
+
+  if (a0 === b0 && b0 === c0) {
+    result = a0;
+  }
+
+  if (a1 === b1 && b1 === c1) {
+    result = a1;
+  }
+
+  if (a2 === b2 && b2 === c2) {
+    result = a2;
+  }
+
+  if (a0 === b1 && b1 === c2) {
+    result = a0;
+  }
+
+  if (a2 === b1 && b1 === c0) {
+    result = a2;
+  }
+
+  return result;
 }
 
 
